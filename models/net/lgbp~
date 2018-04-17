@@ -1,0 +1,151 @@
+#-----------------Cifar-10-------------------------------------------------------------------------------------------------------
+#-----------------conv3--------------------------------------------------------------------------------------------------------
+=> Creating model from file: models/lgbp-net.lua	
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> output]
+  (1): cudnn.Gaborconv2(3 -> 80, 9x9, 1,1, 4,4) without bias
+  (2): cudnn.RandomBinaryConvolution(80 -> 384, 3x3, 1,1, 1,1) without bias
+  (3): nn.SpatialBatchNormalization (4D) (384)
+  (4): cudnn.ReLU
+  (5): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (384)
+        |      (2): cudnn.RandomBinaryConvolution(384 -> 704, 3x3, 1,1, 1,1) without bias
+        |      (3): cudnn.ReLU
+        |      (4): cudnn.SpatialConvolution(704 -> 384, 1x1)
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (6): cudnn.SpatialAveragePooling(5x5, 5,5)
+  (7): nn.Reshape(13824)
+  (8): nn.Dropout(0.500000)
+  (9): nn.Linear(13824 -> 512)
+  (10): cudnn.ReLU
+  (11): nn.Dropout(0.500000)
+  (12): nn.Linear(512 -> 10)
+}
+
+
+
+
+
+
+#-----------------Cifar-10-------------------------------------------------------------------------------------------------------
+#-----------------conv2--------------------------------------------------------------------------------------------------------
+=> Creating model from file: models/lgbp-net.lua	
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> output]
+  (1): cudnn.Gaborconv2(3 -> 80, 9x9, 1,1, 4,4) without bias
+  (2): cudnn.SpatialConvolution(80 -> 384, 3x3)
+  (3): nn.SpatialBatchNormalization (4D) (384)
+  (4): cudnn.ReLU
+  (5): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (384)
+        |      (2): cudnn.RandomBinaryConvolution(384 -> 704, 3x3, 1,1, 1,1) without bias
+        |      (3): cudnn.ReLU
+        |      (4): cudnn.SpatialConvolution(704 -> 384, 1x1)
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (6): cudnn.SpatialAveragePooling(5x5, 5,5)
+  (7): nn.Reshape(13824)
+  (8): nn.Dropout(0.500000)
+  (9): nn.Linear(13824 -> 512)
+  (10): cudnn.ReLU
+  (11): nn.Dropout(0.500000)
+  (12): nn.Linear(512 -> 10)
+}
+
+
+
+
+
+
+#-----------------Cifar-10-------------------------------------------------------------------------------------------------------
+#-----------------conv1--------------------------------------------------------------------------------------------------------
+=> Creating model from file: models/lgbp-net.lua	
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> (13) -> (14) -> output]
+  (1): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> output]
+        |      (1): nn.ConcatTable {
+        |        input
+        |          |`-> (1): cudnn.GaborInitializedConv(3 -> 90, 9x9, 1,1, 4,4) without bias
+        |           `-> (2): cudnn.GaborInitializedConv(3 -> 90, 9x9, 1,1, 4,4) without bias
+        |           ... -> output
+        |      }
+        |      (2): nn.CMulTable
+        |    }
+         `-> (2): nn.Sequential {
+               [input -> (1) -> (2) -> output]
+               (1): nn.ConcatTable {
+                 input
+                   |`-> (1): cudnn.GaborInitializedConv(3 -> 90, 9x9, 1,1, 4,4) without bias
+                    `-> (2): cudnn.GaborInitializedConv(3 -> 90, 9x9, 1,1, 4,4) without bias
+                    ... -> output
+               }
+               (2): nn.CMulTable
+             }
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (2): cudnn.RandomBinaryConvolution(90 -> 704, 3x3, 1,1, 1,1) without bias
+  (3): cudnn.ReLU
+  (4): cudnn.SpatialConvolution(704 -> 384, 1x1)
+  (5): nn.SpatialBatchNormalization (4D) (384)
+  (6): cudnn.ReLU
+  (7): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (384)
+        |      (2): cudnn.RandomBinaryConvolution(384 -> 704, 3x3, 1,1, 1,1) without bias
+        |      (3): cudnn.ReLU
+        |      (4): cudnn.SpatialConvolution(704 -> 384, 1x1)
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (8): cudnn.SpatialAveragePooling(5x5, 5,5)
+  (9): nn.Reshape(13824)
+  (10): nn.Dropout(0.500000)
+  (11): nn.Linear(13824 -> 512)
+  (12): cudnn.ReLU
+  (13): nn.Dropout(0.500000)
+  (14): nn.Linear(512 -> 10)
+}
+
+
+
+
+
+
+
+
+
+
+

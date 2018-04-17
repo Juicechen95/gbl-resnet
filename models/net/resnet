@@ -1,0 +1,33 @@
+#-----------------Cifar-10---------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------
+=> Creating model from file: models/resnet-dense-felix.lua	
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> output]
+  (1): cudnn.SpatialConvolution(3 -> 384, 3x3, 1,1, 1,1)
+  (2): nn.SpatialBatchNormalization (4D) (384)
+  (3): cudnn.ReLU
+  (4): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (384)
+        |      (2): cudnn.SpatialConvolution(384 -> 704, 3x3, 1,1, 1,1)
+        |      (3): cudnn.ReLU
+        |      (4): cudnn.SpatialConvolution(704 -> 384, 1x1)
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (5): cudnn.SpatialAveragePooling(5x5, 5,5)
+  (6): nn.Reshape(13824)
+  (7): nn.Dropout(0.500000)
+  (8): nn.Linear(13824 -> 512)
+  (9): cudnn.ReLU
+  (10): nn.Dropout(0.500000)
+  (11): nn.Linear(512 -> 10)
+}
+
